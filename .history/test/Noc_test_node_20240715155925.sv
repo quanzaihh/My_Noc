@@ -43,46 +43,46 @@ always_ff @(posedge noc_clk or negedge noc_rst_n) begin
                 end
                 else begin
                     noc_sender_if.valid     <= {Noc_VC_Channel{1'b0}};
-                    noc_sender_if.flit[0]   <= 0;
-                    noc_sender_if.flit[1]   <= 0;
-                    noc_sender_if.flit[2]   <= 0;
-                    noc_sender_if.flit[3]   <= 0;
+                    noc_sender_if.flit      <= 0;
+                    noc_sender_if.flit      <= 0;
+                    noc_sender_if.flit      <= 0;
+                    noc_sender_if.flit      <= 0;
                 end
             end
 
             SEND_HEADER:begin
-                if (noc_sender_if.ready[0])begin
-                    noc_sender_if.valid[0]  <= 1'b1;
-                    noc_sender_if.flit[0]   <= {1'b1, 1'b0, Flit_Header};
+                if (noc_sender_if.ready)begin
+                    noc_sender_if.valid  <= 1'b1;
+                    noc_sender_if.flit   <= {1'b1, 1'b0, Flit_Header};
                     send_state <= SEND_DATA;
                 end
                 else begin
-                    noc_sender_if.valid[0]  <= 1'b0;
-                    noc_sender_if.flit[0]   <= 0;
+                    noc_sender_if.valid  <= 1'b0;
+                    noc_sender_if.flit   <= 0;
                 end
             end
 
             SEND_DATA:begin
-                if (noc_sender_if.ready[0])begin
-                    noc_sender_if.valid[0]  <= 1'b1;
-                    noc_sender_if.flit[0]   <= {1'b0, 1'b0, Flit_Data};
+                if (noc_sender_if.ready)begin
+                    noc_sender_if.valid  <= 1'b1;
+                    noc_sender_if.flit   <= {1'b0, 1'b0, Flit_Data};
                     send_state <= SEND_TAIL;
                 end
                 else begin
-                    noc_sender_if.valid[0]  <= 1'b0;
-                    noc_sender_if.flit[0]   <= 0;
+                    noc_sender_if.valid  <= 1'b0;
+                    noc_sender_if.flit   <= 0;
                 end
             end
 
             SEND_TAIL:begin
-                if (noc_sender_if.ready[0])begin
-                    noc_sender_if.valid[0]  <= 1'b1;
-                    noc_sender_if.flit[0]   <= {1'b0, 1'b1, Flit_Tail};
+                if (noc_sender_if.ready)begin
+                    noc_sender_if.valid  <= 1'b1;
+                    noc_sender_if.flit   <= {1'b0, 1'b1, Flit_Tail};
                     send_state <= SEND_IDLE;
                 end
                 else begin
-                    noc_sender_if.valid[0]  <= 1'b0;
-                    noc_sender_if.flit[0]   <= 0;
+                    noc_sender_if.valid  <= 1'b0;
+                    noc_sender_if.flit   <= 0;
                 end
             end
         endcase

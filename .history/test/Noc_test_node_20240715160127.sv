@@ -42,11 +42,8 @@ always_ff @(posedge noc_clk or negedge noc_rst_n) begin
                     $display("node {x: %d, y: %d} send package to node {x: %d, y: %d}", X_ID, Y_ID, DEST_X_ID, DEST_Y_ID);
                 end
                 else begin
-                    noc_sender_if.valid     <= {Noc_VC_Channel{1'b0}};
-                    noc_sender_if.flit[0]   <= 0;
-                    noc_sender_if.flit[1]   <= 0;
-                    noc_sender_if.flit[2]   <= 0;
-                    noc_sender_if.flit[3]   <= 0;
+                    noc_sender_if.valid[0]     <= {Noc_VC_Channel{1'b0}};
+                    noc_sender_if.flit[0]      <= 0;
                 end
             end
 

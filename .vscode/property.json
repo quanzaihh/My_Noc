@@ -1,0 +1,23 @@
+{
+	"toolChain": "xilinx",
+	"prjName": {
+		"PL": "template"
+	},
+	"soc": {
+		"core": "none"
+	},
+	"arch" : {
+		"prjPath": "",
+		"hardware" : {
+			"src"  : "./fabric_rtl",
+			"sim"  : "./test",
+			"data" : ""
+		},
+		"software" : {
+			"src"  : "",
+			"data" : ""
+		}
+	},
+	"enableShowLog": false,
+	"device": "none"
+}
